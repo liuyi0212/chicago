@@ -50,9 +50,14 @@ public interface DoctorDAO {
             @Result(column = "in_serve", property = "inService", typeHandler = BooleanTypeHandler.class) })
     @Select({ "<script>",
             "select md.*, gh.level as level, gh.name as hospital_name,  gd.name as departmentname from member_doctor md, geo_department gd ,geo_hospital gh where md.dept_id = gd.id and md.hospital_id=gh.id  and  md.id in ",
-            "<foreach item='item' index='index' collection='ids'", "open='(' separator=',' close=')'>", "#{item}",
-            "</foreach>", "</script>" })
+            "<if test='ids != null'> <foreach item='item' index='index' collection='ids'", "open='(' separator=',' close=')'>", "#{item}",
+            "</foreach></if>", "</script>" })
     List<Doctor> findDoctorsByIds(@Param("ids") String[] ids);
+
+    @Select({ "<script>",
+            "select id from member_doctor where province_id=2"
+            , "</script>" })
+    List<String> findDoctors();
 
 
 }
