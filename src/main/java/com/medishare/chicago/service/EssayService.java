@@ -1,6 +1,7 @@
 package com.medishare.chicago.service;
 
 import com.medishare.chicago.domain.Essay;
+import com.medishare.chicago.utils.JSONRet;
 
 import java.util.List;
 
@@ -12,5 +13,7 @@ public interface EssayService {
      * 获取所有一键宣教文章
      * @return
      */
-    List<Essay> searchEssay();
+    JSONRet searchEssayJsonType(int page);
+
+    List<Essay> searchEssay(int page);
 }

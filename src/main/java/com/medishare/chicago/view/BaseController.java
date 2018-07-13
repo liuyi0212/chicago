@@ -2,6 +2,10 @@ package com.medishare.chicago.view;
 
 import com.medishare.chicago.service.DoctorService;
 import com.medishare.chicago.service.PatientService;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,4 +23,10 @@ public abstract class BaseController {
 //	@Autowired
 //	PatientService patientService;
 
+	
+	public static void main(String[] args) {
+		Map<String, String> map = new HashMap();
+		String str = map.get("12");
+		System.out.println(str);
+	}
 }
