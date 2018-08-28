@@ -1,5 +1,6 @@
 package com.medishare.chicago.service;
 
+import com.github.promeg.pinyinhelper.Pinyin;
 import com.medishare.chicago.dao.PatientDAO;
 import com.medishare.chicago.domain.PatientRequest;
 import com.medishare.chicago.domain.member.Patient;
@@ -7,6 +8,7 @@ import com.medishare.chicago.domain.request.DoctorRequest;
 import com.medishare.chicago.utils.JSONRet;
 import com.medishare.chicago.utils.JSONRet.Pager;
 import com.medishare.chicago.utils.JSonUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,6 +64,19 @@ public class PatientServiceImpl implements PatientService {
         return patients;
     }
 
+    @Override
+    public Patient findPatientLimit1() {
+        return patientDAO.findPatientLimit1();
+    }
+
     public void getPatientTags(){
+    }
+
+    @Override
+    public void update(Patient patient) {
+        if (patient == null || patient.getId() == null) {
+            return;
+        }
+        patientDAO.updatePatient(patient);
     }
 }

@@ -22,8 +22,11 @@ public class EssayController {
 
     @ResponseBody
     @RequestMapping(path = "/search/essay/", method = RequestMethod.GET, produces = "application/json; charset=utf-8")
-    String searchEssay(@RequestParam(value = "page", required = false, defaultValue = "1") int page) {
-        JSONRet ret = essayService.searchEssayJsonType(page);
-        return JSonUtils.toJsonString(ret);
+    String searchEssay(@RequestParam(value = "page", required = false, defaultValue = "1") int page,
+                       @RequestParam(value = "str", required = false) String str) {
+//        JSONRet ret = essayService.searchEssayJsonType(page);
+        System.out.println(str);
+
+        return JSonUtils.toJsonString(str);
     }
 }

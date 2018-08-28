@@ -229,4 +229,9 @@ public class DoctorServiceImpl implements DoctorService {
     public int finDoctorCount(Doctor doctor, String[] ids) {
         return doctorDAO.finDoctorCount(ids);
     }
+
+    @Override
+    public Doctor findDoctorLimit1() {
+        return doctorDAO.findDoctorLimit1();
+    }
 }

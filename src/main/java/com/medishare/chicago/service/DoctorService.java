@@ -46,4 +46,6 @@ public interface DoctorService {
     List<Map<String, Object>> searchDoctorTagTable (List<String> docIds, List<String> docTags);
 
     int finDoctorCount(Doctor doctor, String[] ids);
+
+    Doctor findDoctorLimit1();
 }

@@ -1,10 +1,13 @@
 package com.medishare.chicago.dao;
 
 import com.medishare.chicago.domain.PatientRequest;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import com.medishare.chicago.domain.member.Patient;
+import org.apache.ibatis.annotations.*;
+import org.apache.ibatis.type.BooleanTypeHandler;
+import org.apache.ibatis.type.JdbcType;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -83,4 +86,100 @@ public interface PatientDAO {
                     "</script>"
     })
     List<PatientRequest> searchSignedPatientsByPatient(@Param("patientIds")List<String> patientIds);
+
+    @Results(value = { @Result(column = "province_id", property = "provinceId", javaType = String.class),
+            @Result(column = "city_id", property = "cityId", javaType = String.class),
+            @Result(column = "district_id", property = "districtId", javaType = String.class),
+            @Result(column = "town_id", property = "townId", javaType = String.class),
+            @Result(column = "community_id", property = "communityId", javaType = String.class),
+            @Result(column = "username", property = "username", javaType = String.class),
+            @Result(column = "realname", property = "realname", javaType = String.class),
+//            @Result(column = "gender", property = "gender", javaType = String.class),
+//            @Result(column = "mydesc", property = "description", javaType = String.class),
+//            @Result(column = "portrait", property = "portrait", javaType = String.class),
+//            @Result(column = "activeStatus", property = "activeStatus", javaType = String.class),
+//            @Result(column = "phone", property = "phone", javaType = String.class),
+//            @Result(column = "email", property = "email", javaType = String.class),
+//            @Result(column = "created", property = "created", javaType = Date.class),
+//            @Result(column = "updated", property = "updated", javaType = Date.class),
+//            @Result(column = "disabled", property = "disabled", javaType = Boolean.class, jdbcType = JdbcType.VARCHAR, typeHandler = BooleanTypeHandler.class),
+//            @Result(column = "birthday", property = "birthday", javaType = Date.class),
+//            @Result(column = "source", property = "source", javaType = String.class),
+//            @Result(column = "address", property = "address", javaType = String.class),
+//            @Result(column = "passwd", property = "password", javaType = String.class),
+//            @Result(column = "weight", property = "weight", javaType = String.class),
+//            @Result(column = "height", property = "height", javaType = String.class),
+//            @Result(column = "pwdsalt", property = "pwdsalt", javaType = String.class),
+//            @Result(column = "nickname", property = "nickname", javaType = String.class),
+//            @Result(column = "BMI", property = "BMI", javaType = String.class),
+//            @Result(column = "id_card", property = "idCard", javaType = String.class),
+//            @Result(column = "id_type", property = "idType", javaType = String.class),
+//            @Result(column = "focus", property = "focusIds", typeHandler = MemoTypehandler.class),
+//            @Result(column = "contract_id", property = "contractId", javaType = String.class),
+//            @Result(column = "origin_name", property = "originName", javaType = String.class),
+//            @Result(column = "full_address", property = "fullAddress", javaType = String.class),
+//            @Result(column = "wyy_accid", property = "wyyAccid", javaType = String.class),
+//            @Result(column = "wyy_pwd", property = "wyyPwd", javaType = String.class),
+//            @Result(column = "medicare_card", property = "medicareCard", javaType = String.class)
+    })
+    @Select({ "select mp.* from member_patient mp where mp.id=#{id}" })
+    Patient findPatientById(@Param("id") String id);
+
+    @Results(value = { @Result(column = "province_id", property = "provinceId", javaType = String.class),
+            @Result(column = "city_id", property = "cityId", javaType = String.class),
+            @Result(column = "district_id", property = "districtId", javaType = String.class),
+            @Result(column = "town_id", property = "townId", javaType = String.class),
+            @Result(column = "community_id", property = "communityId", javaType = String.class),
+            @Result(column = "username", property = "username", javaType = String.class),
+            @Result(column = "realname", property = "realname", javaType = String.class),
+    })
+    @Select({"<script>","select * from member_patient_copy1 where medicare_card not in ('9') LIMIT 1;","</script>"})
+//    @Select({"<script>","SELECT * FROM member_patient_copy1 WHERE id &gt;= ((SELECT MAX(id) FROM member_patient_copy1)-(SELECT MIN(id) FROM member_patient_copy1)) * RAND() + (SELECT MIN(id) FROM member_patient_copy1)  LIMIT 1","</script>"})
+    Patient findPatientLimit1();
+
+
+    @Insert({"<script>", "update member_patient_copy1 set updated = now() ",
+            "<if test='provinceId != null'> , province_id = #{provinceId} </if>",
+            "<if test='cityId != null'> , city_id = #{cityId} </if>",
+            "<if test='districtId != null'> , district_id = #{districtId} </if>",
+            "<if test='townId != null'> , town_id = #{townId} </if>",
+            "<if test='communityId != null'> , community_id = #{communityId} </if>",
+            "<if test='realname != null'> , realname = #{realname} </if>",
+            "<if test='gender != null'> , gender = #{gender} </if>",
+            "<if test='description != null'> , mydesc = #{description} </if>",
+            "<if test='portrait != null'> , portrait = #{portrait} </if>",
+            "<if test='activeStatus != null'> , active_status = #{activeStatus} </if>",
+            "<if test='phone != null'> , phone = #{phone} </if>", "<if test='email != null'> , email = #{email} </if>",
+            "<if test='disabled != null'> , disabled = #{disabled} </if>",
+            "<if test='source != null'> , source = #{source} </if>",
+            "<if test='birthday != null'> , birthday = #{birthday} </if>",
+            "<if test='address != null'> , address = #{address} </if>",
+            "<if test='nickname != null'> , nickname = #{nickname} </if>",
+            "<if test='weight != null'> , weight = #{weight} </if>",
+            "<if test='height != null'> , height = #{height} </if>",
+            "<if test='BMI != null'> , BMI = #{BMI} </if>",
+            "<if test='idCard != null'> , id_card = #{idCard} </if>",
+            "<if test='idType != null'> , id_type = #{idType} </if>",
+            "<if test='focusIds != null'> , focus = #{focusIds,typeHandler=com.medishare.whale.dao.finance.MemoTypehandler} </if>",
+            "<if test='contractId != null'> , contract_id = #{contractId} </if>",
+            "<if test='latitude != null'> , latitude = #{latitude} </if>",
+            "<if test='openid != null'> , openid = #{openid} </if>",
+            "<if test='unionid != null'> , unionid = #{unionid} </if>",
+            "<if test='originName != null'> , origin_name = #{originName} </if>",
+            "<if test='longitude != null'> , longitude = #{longitude} </if>",
+            "<if test='medicareCard != null'> , medicare_card = #{medicareCard} </if>",
+            "<if test='cardUrl != null'> , card_url = #{cardUrl} </if>",
+            "<if test='cardUploadTime != null'> , card_upload_time = #{cardUploadTime} </if>",
+            "<if test='photoAddr != null'> , photo_addr = #{photoAddr} </if>",
+            "<if test='wyyAccid != null'> , wyy_accid = #{wyyAccid} </if>",
+            "<if test='wyyPwd != null'> , wyy_pwd = #{wyyPwd} </if>",
+            "where id = #{id}", "</script>"})
+    int updatePatient(Patient doc);
+
+
+
+
+
+
+
 }

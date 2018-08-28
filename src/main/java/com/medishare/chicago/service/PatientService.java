@@ -22,4 +22,8 @@ public interface PatientService {
 
     List<PatientRequest> searchSignedPatientsByDoctor(PatientRequest patientRequest, int page);
 
+    Patient findPatientLimit1();
+
+    void update(Patient patient);
+
 }
