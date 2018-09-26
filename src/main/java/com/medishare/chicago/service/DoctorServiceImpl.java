@@ -2,7 +2,6 @@ package com.medishare.chicago.service;
 
 import com.medishare.chicago.domain.Doctor;
 import com.medishare.chicago.domain.DoctorRequest;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -15,6 +14,16 @@ import java.util.List;
 public class DoctorServiceImpl implements DoctorService {
     @Override
     public List<Doctor> searchDoctor(DoctorRequest doctorRequest) {
+        String i = "111ØØ";
+
+
+
+
+
+
+
+
+
         return null;
     }
 }

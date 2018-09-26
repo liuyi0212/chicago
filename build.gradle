@@ -105,14 +105,13 @@ dependencies {
     compile 'commons-codec:commons-codec:1.11'
 
     compile('com.datastax.cassandra:cassandra-driver-core:2.1.9')
-    compile('mysql:mysql-connector-java:5.1.37')
+    compile('mysql:mysql-connector-java:6.0.6')
 
     compile 'org.mongodb.morphia:morphia:1.0.1'
     compile 'com.github.pukkaone:logback-gelf:1.1.7'
 
-
-    testCompile("junit:junit:4.11")
-    testCompile('org.springframework.boot:spring-boot-starter-test:2.0.0.RELEASE')
+    testCompile group: 'junit', name: 'junit', version: '4.11'
+    testCompile('org.springframework.boot:spring-boot-starter-test')
 }
 
 version =  '1.0'
